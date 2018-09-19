@@ -12,6 +12,10 @@ RUN apk --no-cache add logrotate tini gettext libintl \
     && mkdir -p /logs \
     && mkdir -p /etc/logrotate.d
 
+RUN addgroup -g $LOG_GROUP_ID box
+RUN adduser -s /bin/sh -D -H -u $LOG_USER_ID -S -G box box
+RUN mkdir -p /etc/logrotate
+
 COPY logrotate.tpl.conf /logrotate.tpl.conf
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
